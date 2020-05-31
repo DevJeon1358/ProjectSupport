@@ -1,24 +1,17 @@
-import Http from 'http';
-import express from 'express';
-import cors from 'cors';
-import api from './api';
-import middlewares from './middlewares';
+import Loaders from './loaders';
+import utils from './utils';
 
-const router = express();
-const server = Http.createServer(router);
+Object.keys(Loaders).forEach((e) => {
+  if (typeof Loaders[e].load === 'function') {
+    utils.colorConsole.gray(`[LOADER] ${e}: Loading`);
 
-const port = process.env.PORT || 5000;
-
-const errorHandler = new middlewares.ErrorHandlerMiddleware(true);
-
-// Init Middlewares
-router.use(cors());
-router.use(errorHandler.getMiddleware());
-
-// API Middlewares
-router.use('/api', api);
-
-// Init server
-server.listen(port, () => {
-  console.log(`Server is listening on port, ${port}`);
+    try {
+      Loaders[e].load();
+      utils.colorConsole.green(`[LOADER] ${e}: Load Success!`);
+    } catch (error) {
+      utils.colorConsole.red(`[LOADER] ${e}: Load Failed:\n${error}`);
+    }
+  } else {
+    utils.colorConsole.yellow(`[LOADER] ${e}: Load Method not found`);
+  }
 });
