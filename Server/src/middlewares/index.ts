@@ -1,5 +1,7 @@
-import authMiddleware from './auth';
+import AuthMiddleware from './auth';
+import ErrorHandlerMiddleware from './errorHandler';
 
 export default {
-  authMiddleware,
+  AuthMiddleware,
+  ErrorHandlerMiddleware,
 };
