@@ -1,4 +1,4 @@
-import { IsString, Length, IsInt } from 'class-validator';
+import { IsString, Length } from 'class-validator';
 import RequestBase from './RequestBase';
 
 class registerRequest extends RequestBase {
@@ -7,9 +7,6 @@ class registerRequest extends RequestBase {
 
   @IsString()
   public pw: String;
-
-  @IsInt()
-  public targetSupportDesk: Number;
 }
 
 export default registerRequest;
