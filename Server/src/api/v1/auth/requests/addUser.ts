@@ -1,5 +1,5 @@
 import { IsString, Length } from 'class-validator';
-import RequestBase from './RequestBase';
+import RequestBase from '../../../../types/RequestBase';
 
 class registerRequest extends RequestBase {
   @Length(4, 12)

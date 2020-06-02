@@ -105,3 +105,6 @@ dist
 
 # Config File
 config/
+
+# Public files
+public/

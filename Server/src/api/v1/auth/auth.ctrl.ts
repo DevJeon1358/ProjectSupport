@@ -1,22 +1,23 @@
 import { Request, Response } from 'express';
 import Requests from './requests';
 
-export const login = async (req: Request, res: Response) => {
-  const loginRequest = new Requests.LoginRequest();
-  loginRequest.wrap(req.body);
+class AuthController {
+  public static login = async (req: Request, res: Response) => {
+    try {
+      Requests.LoginRequest.validate(req.query);
+    } catch (error) {
+      res.status(400).json({
+        status: 400,
+        mesasge: '요청 검증 오류',
+      });
 
-  const errors = await loginRequest.validate();
-  if (errors.length > 0) {
-    res.status(400).json({
-      status: 400,
-      mesasge: '요청 검증 오류',
-      errors,
-    });
+      return null;
+    }
+  };
 
-    return null;
-  }
-};
+  public static register = async (req: Request, res: Response) => {
 
-export const register = async (req: Request, res: Response) => {
+  };
+}
 
-};
+export default AuthController;

@@ -1,7 +1,7 @@
 import LoginRequest from './login';
-import RegisterRequest from './register';
+import AddUserRequest from './addUser';
 
 export default {
   LoginRequest,
-  RegisterRequest,
+  AddUserRequest,
 };
