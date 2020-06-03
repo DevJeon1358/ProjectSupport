@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import ResponseBase from '../types/ResponseBase';
 import utils from '../utils';
 
 class errorHandlerClass {
@@ -15,6 +16,7 @@ class errorHandlerClass {
       }
 
       await next();
+      console.log(2);
     } catch (error) {
       utils.colorConsole.red(`[Error] Response Status with 500 in ${req.path},\n${error}`);
 
