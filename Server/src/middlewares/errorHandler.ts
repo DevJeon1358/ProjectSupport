@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import ResponseBase from '../types/ResponseBase';
+import { Context } from 'koa';
 import utils from '../utils';
 
 class errorHandlerClass {
@@ -9,21 +8,21 @@ class errorHandlerClass {
     this.isDebug = debug;
   }
 
-  private middleware = async (req: Request, res: Response, next: Function) => {
+  private middleware = async (ctx: Context, next: Function) => {
     try {
       if (this.isDebug === true) {
-        utils.colorConsole.gray(`[Request] Got a request in ${req.path}`);
+        utils.colorConsole.gray(`[Request] Got a request in ${ctx.request.path}`);
       }
 
-      await next();
-      console.log(2);
+      next();
     } catch (error) {
-      utils.colorConsole.red(`[Error] Response Status with 500 in ${req.path},\n${error}`);
+      utils.colorConsole.red(`[Error] Response Status with 500 in ${ctx.request.path},\n${error}`);
 
-      res.status(500).json({
+      ctx.status = 500;
+      ctx.body = {
         status: 500,
-        message: '서버 오류',
-      });
+        message: 'Internal Server Error',
+      };
     }
   };
 

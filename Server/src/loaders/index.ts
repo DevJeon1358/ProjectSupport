@@ -1,9 +1,9 @@
 import DotEnv from './dotenvLoader';
 import Typeorm from './typeormLoader';
-import Express from './expressLoader';
+import API from './APILoader';
 
 export default {
   DotEnv,
   Typeorm,
-  Express,
+  API,
 };

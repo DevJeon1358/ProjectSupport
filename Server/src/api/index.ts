@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import Router from 'koa-router';
 import v1Router from './v1';
 
-const router = Router();
-router.use('/v1', v1Router);
+const router = new Router();
+router.use('/v1', v1Router.routes());
 
 export default router;

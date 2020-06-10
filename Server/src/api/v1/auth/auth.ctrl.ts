@@ -1,30 +1,37 @@
-import { Request, Response } from 'express';
+import { Context } from 'koa';
 import RequestValidator from '../../../utils/RequestValidator';
 import Requests from './requests';
 import ResponseBase from '../../../types/ResponseBase';
 import Responses from './responses';
 
 class AuthController {
-  public static login = async (req: Request, res: Response): Promise<ResponseBase> => {
+  public static login = async (ctx: Context): Promise<ResponseBase> => {
     try {
-      await RequestValidator(Requests.LoginRequest, req.query);
+      await RequestValidator(Requests.LoginRequest, ctx.request.query);
     } catch (error) {
-      console.log('1');
       return new Responses.RequestValidationError();
     }
 
-    res.status(200).json({});
+    ctx.status = 200;
+    ctx.body = {
+      status: 200,
+    };
+
     return new Responses.RequestValidationError();
   };
 
-  public static register = async (req: Request, res: Response): Promise<ResponseBase> => {
+  public static register = async (ctx: Context): Promise<ResponseBase> => {
     try {
-      await RequestValidator(Requests.AddUserRequest, req.query);
+      await RequestValidator(Requests.AddUserRequest, ctx.request.query);
     } catch (error) {
       return new Responses.RequestValidationError();
     }
 
-    res.status(200).json({});
+    ctx.status = 200;
+    ctx.body = {
+      status: 200,
+    };
+
     return new Responses.RequestValidationError();
   };
 }

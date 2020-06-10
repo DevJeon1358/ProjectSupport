@@ -1,12 +1,13 @@
-import { Request, Response } from 'express';
+import { Context } from 'koa';
 
-const middleware = async (req: Request, res: Response, next: Function) => {
-  const tokenHeader = req.headers['x-access-token'];
+const middleware = async (ctx: Context, next: Function) => {
+  const tokenHeader = ctx.request.headers['x-access-token'];
   if (!tokenHeader) {
-    res.status(403).json({
+    ctx.status = 403;
+    ctx.body = {
       status: 403,
-      message: 'Authendation header is required',
-    });
+      message: 'Authorization Header is required',
+    };
 
     return null;
   }
